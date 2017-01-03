@@ -8,7 +8,6 @@ requirejs.config({
         angular:'libs/angular.min',
         'ui-router':'libs/angular-ui-router',
         domReady: 'libs/domReady',
-        datepicker:'libs/datepicker/datepicker',
 
         app:'app',
         router:'router',
@@ -16,6 +15,7 @@ requirejs.config({
 
         errortip:'directives/errortip',
         footer:'directives/footer',
+        datepicker:'directives/date-picker',
 
 
         loginCtrl:'controllers/loginctrl',

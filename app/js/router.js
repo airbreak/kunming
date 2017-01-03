@@ -41,7 +41,7 @@ define('router',[
                         templateUrl:'pages/topbanner.html'
                     },
                     'mainView@register':{
-                        templateUrl:'pages/register.html'
+                        templateUrl:'pages/register/register.html'
                     },
                 }
             })
@@ -55,7 +55,7 @@ define('router',[
                         templateUrl:'pages/topbanner.html'
                     },
                     'mainView@registerdone':{
-                        templateUrl:'pages/registerdone.html'
+                        templateUrl:'pages/register/registerdone.html'
                     },
                 }
             })

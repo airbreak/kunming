@@ -20,13 +20,14 @@ a:focus {
   outline: none;
   -moz-outline: none;
 }
-input,
+input[type="text"],
+input[type="password"],
 textarea {
   -webkit-appearance: none;
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }
-input[type=text]:focus,
-input[type=password]:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
 textarea:focus {
   outline: 0;
   border: 1px solid #3667a6;
@@ -124,6 +125,11 @@ body .normal-btn {
 }
 body .normal-btn:hover {
   background-color: #19539e;
+}
+body .normal-btn.disabled {
+  pointer-events: none;
+  background-color: #F6F6F6;
+  color: #808080;
 }
 .bg-sprite {
   background: url(../imgs/sprite.png) 0 0 no-repeat;
@@ -259,28 +265,31 @@ body .normal-btn:hover {
   text-align: center;
   line-height: 50px;
 }
-.register-box {
+.register-item-box {
   width: 80%;
   margin: 0 auto;
+  /*用户协议*/
+  /*注册表单*/
 }
-.register-box .register-header {
+.register-item-box .register-header {
   border-bottom: 1px solid #dbdbdb;
   padding-bottom: 5px;
 }
-.register-box .register-header > div {
+.register-item-box .register-header > div {
   display: inline-block;
 }
-.register-box .register-header > div a {
+.register-item-box .register-header > div a {
+  cursor: pointer;
   font-size: 14px;
   color: #a09e9e;
 }
-.register-box .register-header > div a:hover {
+.register-item-box .register-header > div a:hover {
   text-decoration: underline;
 }
-.register-box .register-header > div:first-child {
+.register-item-box .register-header > div:first-child {
   width: 49%;
 }
-.register-box .register-header > div:first-child i {
+.register-item-box .register-header > div:first-child i {
   display: inline-block;
   width: 19px;
   height: 16px;
@@ -288,32 +297,92 @@ body .normal-btn:hover {
   background-position: -273px -93px;
   vertical-align: -3px;
 }
-.register-box .register-header > div:first-child span {
+.register-item-box .register-header > div:first-child span {
   margin-left: 5px;
 }
-.register-box .register-header > div:last-child {
+.register-item-box .register-header > div:last-child {
   width: 50%;
   text-align: right;
 }
-.register-box .register-header > div:last-child span {
+.register-item-box .register-header > div:last-child span {
   cursor: pointer;
 }
-.register-box .register-header > div:last-child span:hover {
+.register-item-box .register-header > div:last-child span:hover {
   color: #6f6b6b;
 }
-.register-box .register-tips {
+.register-item-box.agreement-wrapper {
+  font-family: Helvetica, arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: white;
+  padding: 30px;
+}
+.register-item-box.agreement-wrapper .register-title {
+  color: #E93F37;
+}
+.register-item-box.agreement-wrapper .content-main {
+  padding-bottom: 40px;
+  border-bottom: 1px solid #D0D0D0;
+}
+.register-item-box.agreement-wrapper .content-main h4 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+  cursor: text;
+  position: relative;
+}
+.register-item-box.agreement-wrapper .content-main h4 {
+  font-size: 16px;
+}
+.register-item-box.agreement-wrapper .content-main p {
+  margin: 15px 0;
+}
+.register-item-box.agreement-wrapper .content-main hr {
+  background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAECAYAAACtBE5DAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OENDRjNBN0E2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OENDRjNBN0I2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo4Q0NGM0E3ODY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo4Q0NGM0E3OTY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PqqezsUAAAAfSURBVHjaYmRABcYwBiM2QSA4y4hNEKYDQxAEAAIMAHNGAzhkPOlYAAAAAElFTkSuQmCC) repeat-x 0 0;
+  border: 0 none;
+  color: #cccccc;
+  height: 4px;
+  padding: 0;
+}
+.register-item-box.agreement-wrapper .agreement-footer {
+  margin: 40px 0;
+  display: -webkit-box;
+}
+.register-item-box.agreement-wrapper .agreement-footer > div {
+  -webkit-box-flex: 1;
+  width: 1%;
+}
+.register-item-box.agreement-wrapper .agreement-footer > div.left-footer {
+  color: #3667a6;
+}
+.register-item-box.agreement-wrapper .agreement-footer > div.left-footer input {
+  margin-right: 20px;
+  width: 14px;
+  height: 14px;
+}
+.register-item-box.agreement-wrapper .agreement-footer > div.right-footer {
+  text-align: right;
+}
+.register-item-box.agreement-wrapper .agreement-footer > div.right-footer .normal-btn {
+  width: 80px;
+  height: 32px;
+}
+.register-item-box.register-wrapper .register-tips {
   width: 490px;
   margin: 30px auto 0 auto;
   position: relative;
   border-bottom: 1px solid #dbdbdb;
 }
-.register-box .register-tips .left {
+.register-item-box.register-wrapper .register-tips .left {
   position: absolute;
   width: 100px;
   height: auto;
   padding-top: 3px;
 }
-.register-box .register-tips .left i {
+.register-item-box.register-wrapper .register-tips .left i {
   display: inline-block;
   width: 19px;
   height: 19px;
@@ -321,69 +390,69 @@ body .normal-btn:hover {
   background-position: -220px -15px;
   vertical-align: -4px;
 }
-.register-box .register-tips .left span {
+.register-item-box.register-wrapper .register-tips .left span {
   margin-left: 5px;
   color: #3667a6;
   font-size: 13px;
 }
-.register-box .register-tips .right {
+.register-item-box.register-wrapper .register-tips .right {
   margin-left: 100px;
   padding-left: 20px;
 }
-.register-box .register-tips .right p {
+.register-item-box.register-wrapper .register-tips .right p {
   color: #a09e9e;
   line-height: 27px;
   font-size: 13px;
   margin: 10px 0;
 }
-.register-box .register-tips .right p span {
+.register-item-box.register-wrapper .register-tips .right p span {
   margin-right: 6px;
   color: #212121;
 }
-.register-box .register-form {
+.register-item-box.register-wrapper .register-form {
   width: 490px;
   margin: 30px auto 0 auto;
 }
-.register-box .register-form > div {
+.register-item-box.register-wrapper .register-form > div {
   width: 390px;
 }
-.register-box .register-form > div .form-group {
+.register-item-box.register-wrapper .register-form > div .form-group {
   position: relative;
   width: 100%;
   height: 35px;
   margin: 35px 0;
 }
-.register-box .register-form > div .form-group .left-filed {
+.register-item-box.register-wrapper .register-form > div .form-group .left-filed {
   position: absolute;
   width: 52px;
   height: 100%;
   text-align: right;
 }
-.register-box .register-form > div .form-group .left-filed label {
+.register-item-box.register-wrapper .register-form > div .form-group .left-filed label {
   color: #a09e9e;
   font-size: 13px;
   vertical-align: -8px;
 }
-.register-box .register-form > div .form-group .right-input {
+.register-item-box.register-wrapper .register-form > div .form-group .right-input {
   margin-left: 70px;
   padding-left: 50px;
   position: relative;
 }
-.register-box .register-form > div .form-group .right-input input {
+.register-item-box.register-wrapper .register-form > div .form-group .right-input input {
   width: 260px;
 }
-.register-box .register-form > div .form-group .right-input form {
+.register-item-box.register-wrapper .register-form > div .form-group .right-input form {
   width: 110px;
   height: 30px;
   opacity: 0;
 }
-.register-box .register-form > div .form-group .right-input form input {
+.register-item-box.register-wrapper .register-form > div .form-group .right-input form input {
   cursor: pointer;
   display: block;
   width: 100%;
   height: 100%;
 }
-.register-box .register-form > div .form-group .right-input .select-box {
+.register-item-box.register-wrapper .register-form > div .form-group .right-input .select-box {
   position: absolute;
   top: 0;
   left: 52px;
@@ -396,7 +465,7 @@ body .normal-btn:hover {
   background-clip: padding-box;
   line-height: 30px;
 }
-.register-box .register-form > div .form-group .right-input .select-box i {
+.register-item-box.register-wrapper .register-form > div .form-group .right-input .select-box i {
   display: inline-block;
   width: 19px;
   height: 14px;
@@ -405,7 +474,7 @@ body .normal-btn:hover {
   vertical-align: -3px;
   margin-left: 10px;
 }
-.register-box .register-form > div .form-group .right-input .select-box span {
+.register-item-box.register-wrapper .register-form > div .form-group .right-input .select-box span {
   color: #737272;
   font-size: 13px;
   margin-left: 15px;
@@ -517,26 +586,26 @@ body .normal-btn:hover {
 .doc-detail-wrapper .doc-detial-left .basic-info-item .info-item-content {
   margin-top: 10px;
 }
-.doc-detail-wrapper .doc-detial-left .basic-info-item .info-item-content li {
+.doc-detail-wrapper .doc-detial-left .basic-info-item .info-item-content > ul li {
   margin: 15px 0;
 }
-.doc-detail-wrapper .doc-detial-left .basic-info-item .info-item-content li > div {
+.doc-detail-wrapper .doc-detial-left .basic-info-item .info-item-content > ul li > div {
   display: inline-block;
   vertical-align: top;
   font-size: 12px;
 }
-.doc-detail-wrapper .doc-detial-left .basic-info-item .info-item-content li .field {
+.doc-detail-wrapper .doc-detial-left .basic-info-item .info-item-content > ul li .field {
   color: #a09e9e;
   width: 20%;
   text-align: right;
 }
-.doc-detail-wrapper .doc-detial-left .basic-info-item .info-item-content li .val {
+.doc-detail-wrapper .doc-detial-left .basic-info-item .info-item-content > ul li .val {
   width: 75%;
   color: #666666;
   padding-left: 8px;
   line-height: 20px;
 }
-.doc-detail-wrapper .doc-detial-left .basic-info-item .info-item-content li .val.name {
+.doc-detail-wrapper .doc-detial-left .basic-info-item .info-item-content > ul li .val.name {
   color: #3667a6;
 }
 .doc-detail-wrapper .doc-detial-left .basic-info-item .info-item-content .prev-result {

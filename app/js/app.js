@@ -4,5 +4,5 @@
 	 'datepicker'
  	],function (ng) {
  		'use strict';
- 		return ng.module('app',['ui.router','datePicker']);
+ 		return ng.module('app',['ui.router','date-picker-mayi']);
  	});
